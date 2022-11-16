@@ -1,0 +1,30 @@
+[
+	{
+		"id": 1,
+		"fullName": "Liancho Kalpachyan",
+		"address": "Massiv street",
+		"phoneNumber": "7348443743943",
+		"email": "liana@email.com"
+	},
+	{
+		"id": 2,
+		"fullName": "Hayk Arshakyan",
+		"address": "Bangladesh street",
+		"phoneNumber": "497834873",
+		"email": "hayko@email.com"
+	},
+	{
+		"id": 3,
+		"fullName": "Nick Andreasyan",
+		"address": "Ejmiatin street",
+		"phoneNumber": "584532",
+		"email": "nick@email.com"
+	},
+	{
+		"id": 4,
+		"fullName": "Samvel Petrosyan",
+		"address": "Proshyan street",
+		"phoneNumber": "323278923",
+		"email": "samvel@email.com"
+	}
+]
