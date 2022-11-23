@@ -46,7 +46,7 @@ const Edit = ({index, editFormData, handleEditFormChange, handleClickCancel}) =>
             </td>
             <td>
                 <button type="submit" className="save">Save</button>
-                <button className="cancel save" onClick={handleClickCancel}>Cancel</button>
+                <button type="button" className="cancel save" onClick={handleClickCancel}>Cancel</button>
             </td>
         </tr>
     );

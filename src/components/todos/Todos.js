@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import data from "../../mock-data.json";
 import Edit from "../edit/Edit";
 import ReadOnlyRow from "../readonlyRow.js/ReadOnlyRow";
@@ -13,6 +13,8 @@ const Todos = () => {
 		email: ""
 	});
 
+	const [query, setQuery] = useState("");
+
 	const [editContactId, setEditContactId] = useState(null);
 	const [editFormData, setEditFormData] = useState({
 		fullName: "",
@@ -20,6 +22,14 @@ const Todos = () => {
 		phoneNumber: "",
 		email: ""
 	})
+
+	useEffect(() => {
+		if (localStorage.getItem("localTodo")) {
+			const storedList = JSON.parse(localStorage.getItem("localTodo"))
+
+			setContacts(storedList)
+		}
+	}, []);
 
 	const handleAddFormChange = (event) => {
 		const fieldName = event.target.getAttribute("name");
@@ -43,6 +53,8 @@ const Todos = () => {
 		}
 
 		const newContacts = [...contacts, newContact];
+
+		localStorage.setItem("localTodo", JSON.stringify([...contacts, newContact]))
 		setContacts(newContacts)
 
 		setAddFormData({
@@ -74,7 +86,7 @@ const Todos = () => {
 		const fieldName = event.target.getAttribute("name");
 		const fieldValue = event.target.value;
 
-		const newFormData = {...editFormData};
+		const newFormData = { ...editFormData };
 		newFormData[fieldName] = fieldValue;
 
 		setEditFormData(newFormData);
@@ -112,9 +124,21 @@ const Todos = () => {
 		const index = contacts.findIndex((contact) => contact.id === contactId);
 
 		newContacts.splice(index, 1);
-		
+
 		setContacts(newContacts);
+
+		localStorage.setItem("localTodo", JSON.stringify(newContacts))
 	};
+
+	// sorting function
+
+	const keys = ["fullName", "address", "phoneNumber", "email"];
+
+	const search = (data) => {
+			return data.filter((item) =>
+				keys.some((key) => item[key].toLowerCase().includes(query))
+			)
+	}
 
 	return (
 		<>
@@ -154,7 +178,14 @@ const Todos = () => {
 				<button className="addBtn">Add</button>
 			</form>
 
-			<input type="text" placeholder="Search..." className="filter" />
+			{/* Searching data */}
+			<input
+				type="text"
+				className="filter"
+				placeholder="Search..."
+				value={query}
+				onChange={(e) => setQuery(e.target.value)}
+			/>
 
 			<form className="form_2" autoComplete="off" onSubmit={handleEditFormSubmit}>
 				<table className="styled-table">
@@ -171,12 +202,12 @@ const Todos = () => {
 					</thead>
 					<tbody>
 						{
-							contacts.map((contact, index) => (
+							  search(contacts).map((contact, index) => (
 								<Fragment>
 									{
 										editContactId === contact.id ? (
-											<Edit 
-												index={index} 
+											<Edit
+												index={index}
 												editFormData={editFormData}
 												handleEditFormChange={handleEditFormChange}
 												handleClickCancel={handleClickCancel}
