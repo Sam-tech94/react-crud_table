@@ -18,9 +18,11 @@ const ReadOnlyRow = ({ contact, index, handleEditClick, handleDeleteClick }) => 
             </td>
             <td>
                 <button className="addBtn delete" onClick={() => setIsOpen(true)}>Delete</button>
-                <Modal open={isOpen} handleDeleteClick={handleDeleteClick} setIsOpen={setIsOpen}>
-                    Are you sure you want to delete it?
-                </Modal>
+                {
+                    isOpen && <Modal open={isOpen} handleDeleteClick={handleDeleteClick} setIsOpen={setIsOpen}>
+                            Are you sure you want to delete it?
+                        </Modal>
+                }
             </td>
         </tr>
     );
