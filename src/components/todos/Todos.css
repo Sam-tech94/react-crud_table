@@ -2,14 +2,16 @@
 	font-size: 18px;
 }
 
+
 .form input {
 	padding: 15px 20px;
 	margin-left: 30px;
-	
 	border-radius: 5px;
 	border: 1px solid #009879;
 	outline: none;
 }
+
+
 
 .addBtn {
 	margin-left: 20px;
@@ -106,4 +108,8 @@
 .delete:hover {
 	background-color: red;
 	transition: .4s ease-in;
+}
+
+.form_2 {
+	max-height: 300px;
 }

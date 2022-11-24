@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "../modal/Modal";
 
 const ReadOnlyRow = ({ contact, index, handleEditClick, handleDeleteClick }) => {
+    const [isOpen, setIsOpen] = useState(false)
+
     return (
         <tr>
             <td>{index + 1}</td>
@@ -14,7 +17,10 @@ const ReadOnlyRow = ({ contact, index, handleEditClick, handleDeleteClick }) => 
                 onClick={(event) => handleEditClick(event, contact)}>Edit</button>
             </td>
             <td>
-                <button className="addBtn delete" onClick={() => handleDeleteClick(contact)}>Delete</button>
+                <button className="addBtn delete" onClick={() => setIsOpen(true)}>Delete</button>
+                <Modal open={isOpen} handleDeleteClick={handleDeleteClick} setIsOpen={setIsOpen}>
+                    Are you sure you want to delete it?
+                </Modal>
             </td>
         </tr>
     );

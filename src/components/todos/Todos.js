@@ -14,6 +14,7 @@ const Todos = () => {
 	});
 
 	const [query, setQuery] = useState("");
+	
 
 	const [editContactId, setEditContactId] = useState(null);
 	const [editFormData, setEditFormData] = useState({
