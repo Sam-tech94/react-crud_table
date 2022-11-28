@@ -143,6 +143,7 @@ const Todos = () => {
 
 	return (
 		<>
+	
 			<form className="form" autoComplete="off" onSubmit={handleAddFormSubmit}>
 				<input
 					tyconst handleClickCancelpe="text"
@@ -187,7 +188,7 @@ const Todos = () => {
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 			/>
-
+			{/* <div className="form_2_wrapper"> */}
 			<form className="form_2" autoComplete="off" onSubmit={handleEditFormSubmit}>
 				<table className="styled-table">
 					<thead>
@@ -229,6 +230,7 @@ const Todos = () => {
 					</tbody>
 				</table>
 			</form>
+			{/* </div> */}
 		</>
 	)
 };
