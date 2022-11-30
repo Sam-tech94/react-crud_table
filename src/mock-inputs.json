@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "fullName",
+    "type": "text",
+    "placeholder": "Sam Jones",
+    "label": "Fullname"
+  },
+  {
+    "id": 2,
+    "name": "address",
+    "type": "text",
+    "placeholder": "Saryan street",
+    "label": "Address"
+  },
+  {
+    "id": 3,
+    "name": "phoneNumber",
+    "type": "number",
+    "placeholder": "+37477243224",
+    "label": "Phone number"
+  },
+  {
+    "id": 4,
+    "name": "email",
+    "type": "email",
+    "placeholder": "samJones@gmail.com",
+    "label": "Email"
+  }
+]
