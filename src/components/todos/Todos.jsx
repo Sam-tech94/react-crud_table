@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Todos.css"
 import data from "../../mock-data.json";
 import ReadOnlyRow from "../readonlyrow/ReadOnlyRow";
@@ -19,14 +19,27 @@ const Todos = () => {
 		isEdit: false,
 		userIndex: false
 	});
-	const [query, setQuery] = useState("")
+	const [query, setQuery] = useState("");
+	const [validate, setValidate] = useState("")
 
+	useEffect(() => {
+		if (localStorage.getItem("localTodo")) {
+			const storedList = JSON.parse(localStorage.getItem("localTodo"));
+
+			setTableData(storedList)
+		}
+	}, [])
 
 	const isFilledFields =
 		Boolean(addFormData.fullName) && Boolean(addFormData.address) && Boolean(addFormData.phoneNumber) && Boolean(addFormData.email)
 
 	const handleChange = (e) => {
-		setAddFormData({ ...addFormData, [e.target.name]: e.target.value })
+		if (e.target.value.length >= 20) {
+			setValidate("Task content can contain max 20 characters")
+		} else {
+			setValidate("")
+			setAddFormData({ ...addFormData, [e.target.name]: e.target.value })
+		}
 	}
 
 	const handleAddSubmit = (e) => {
@@ -45,16 +58,17 @@ const Todos = () => {
 				})
 			} else {
 				const newContact = {
-					id: Math.random(Math.floor() * 10000),
+					id: Math.floor(Math.random() * 10000),
 					fullName: addFormData.fullName,
 					address: addFormData.address,
 					phoneNumber: addFormData.phoneNumber,
 					email: addFormData.email
 				}
 				const newFormData = [...tableData, newContact];
+
+				localStorage.setItem("localTodo", JSON.stringify(newFormData))
 				setTableData(newFormData);
 			}
-
 		}
 		setAddFormData(initialState)
 	}
@@ -71,6 +85,8 @@ const Todos = () => {
 		const removeItem = [...tableData].filter((item) => item.id !== id);
 
 		setTableData(removeItem)
+
+		localStorage.setItem("localTodo", JSON.stringify(removeItem))
 	}
 
 	const handleCancelClick = () => {
@@ -80,23 +96,23 @@ const Todos = () => {
 	const keys = ["fullName", "address", "phoneNumber", "email"];
 
 	const search = (data) => {
-		return data.filter((item) => 
+		return data.filter((item) =>
 			keys.some((key) => item[key].toLowerCase().includes(query))
 		)
 	}
 
 	return (
 		<div className="container">
-			<div className="container_wrapper">
-				<div className="container_search">
-					<input 
-						className="search" 
-						type="text" 
-						placeholder="Search..." 
-						value={query}
-						onChange={(e) => setQuery(e.target.value)}
-					/>
-				</div>
+			<div className="container__search">
+				<input
+					className="search"
+					type="text"
+					placeholder="Search..."
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
+				/>
+			</div>
+			<div className="container__wrapper">
 				<form className="form" autoComplete="off" onSubmit={handleAddSubmit}>
 					{
 						inputsData.map((input) => (
@@ -105,11 +121,12 @@ const Todos = () => {
 								{...input}
 								value={addFormData[input.name]}
 								handleChange={handleChange}
+								validate={validate}
 							/>
 						))
 					}
-					<button disabled={!isFilledFields} className="form_button">
-						{editableUserData.isEdit ? "Edit" : "Add"}
+					<button disabled={!isFilledFields} className="form__button">
+						Add
 					</button>
 				</form>
 				<table className="table">
@@ -132,7 +149,7 @@ const Todos = () => {
 									key={item.id}
 									item={item}
 									index={index}
-									handleEditCLick={handleEditCLick}
+									handleEditClick={handleEditCLick}
 									editableUserData={editableUserData}
 									handleCancelClick={handleCancelClick}
 									handleRemoveClick={handleRemoveClick}

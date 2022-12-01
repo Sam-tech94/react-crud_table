@@ -4,27 +4,31 @@
     "name": "fullName",
     "type": "text",
     "placeholder": "Sam Jones",
-    "label": "Fullname"
+    "label": "Fullname",
+    "required": true
   },
   {
     "id": 2,
     "name": "address",
     "type": "text",
     "placeholder": "Saryan street",
-    "label": "Address"
+    "label": "Address",
+    "required": true
   },
   {
     "id": 3,
     "name": "phoneNumber",
     "type": "number",
     "placeholder": "+37477243224",
-    "label": "Phone number"
+    "label": "Phone number",
+    "required": true
   },
   {
     "id": 4,
     "name": "email",
     "type": "email",
     "placeholder": "samJones@gmail.com",
-    "label": "Email"
+    "label": "Email",
+    "required": true
   }
 ]

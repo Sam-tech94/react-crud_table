@@ -6,13 +6,14 @@ const FormInput = (props) => {
   return (
     <>
       <label>
-        <span className="form_span">{label}</span>
+        <span className="form__label">{label}</span>
         <input
-          className="form_input"
+          className="form__input"
           onChange={handleChange}
           value={value}
           {...inputProp}
         />
+        <span className="form__validation">{validate}</span>
       </label>
     </>
   )
